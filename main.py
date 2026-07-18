@@ -19,3 +19,9 @@ def return_task(id:int)->TaskSchema:
     if task:
         return task
     raise HTTPException(status_code=404, detail="Task not Found!")
+
+
+@app.post("/tasks", status_code=201)
+def create_task(task:TaskSchema)->TaskSchema:
+    tasks_db[task.id]=task
+    return task
