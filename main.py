@@ -25,3 +25,11 @@ def return_task(id:int)->TaskSchema:
 def create_task(task:TaskSchema)->TaskSchema:
     tasks_db[task.id]=task
     return task
+
+@app.put("/tasks/{id}")
+def update_task(id:int,newTask:TaskSchema)->TaskSchema:
+    task=tasks_db.get(id)
+    if task:
+        tasks_db[id]=newTask
+        return newTask
+    raise HTTPException(status_code=404, detail="TASK NOT FOUND!")
