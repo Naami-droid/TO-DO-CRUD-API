@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException
 import pydantic
-from schema import TaskSchema
+from schema import XAITaskSchema
 from tasks import tasks_db
 
 app=FastAPI()
@@ -14,7 +14,7 @@ def return_health():
     return({"status":"good"})
 
 @app.get("/task/{id}")
-def return_task(id:int)->TaskSchema:
+def return_task(id:int)->XAITaskSchema:
     task=tasks_db.get(id)
     if task:
         return task
@@ -22,12 +22,12 @@ def return_task(id:int)->TaskSchema:
 
 
 @app.post("/tasks", status_code=201)
-def create_task(task:TaskSchema)->TaskSchema:
+def create_task(task:XAITaskSchema)->XAITaskSchema:
     tasks_db[task.id]=task
     return task
 
 @app.put("/tasks/{id}")
-def update_task(id:int,newTask:TaskSchema)->TaskSchema:
+def update_task(id:int,newTask:XAITaskSchema)->XAITaskSchema:
     task=tasks_db.get(id)
     if task:
         tasks_db[id]=newTask
