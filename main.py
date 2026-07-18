@@ -9,3 +9,6 @@ app=FastAPI()
 def read_root():
     return({"message":"A TO-DO list built with FastAPI"})
 
+@app.get("/health")
+def return_health():
+    return({"status":"good"})
