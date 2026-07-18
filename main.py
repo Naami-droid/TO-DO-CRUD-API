@@ -12,3 +12,10 @@ def read_root():
 @app.get("/health")
 def return_health():
     return({"status":"good"})
+
+@app.get("/task/{id}")
+def return_task(id:int)->TaskSchema:
+    task=tasks_db.get(id)
+    if task:
+        return task
+    raise HTTPException(status_code=404, detail="Task not Found!")
